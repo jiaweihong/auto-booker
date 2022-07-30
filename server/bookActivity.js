@@ -9,11 +9,9 @@ const req = require('./data.json');
 async function LogIntoBookingWebsite(driver, req){
     let usernameField = await driver.wait(until.elementLocated(By.css('input[id="username"]')), 30000);
     await usernameField.sendKeys(req.username);
-
     
     var bytes = CryptoJs.AES.decrypt(req.password, process.env.REACT_APP_ENCRYPTION_KEY);
     var password = bytes.toString(CryptoJs.enc.Utf8);
-    console.log(password);
 
     let passwordField = await driver.wait(until.elementLocated(By.css('input[id="password"]')), 30000);
     await passwordField.sendKeys(password);
@@ -180,8 +178,20 @@ async function bookActivity(req) {
         //await payForBookings(driver);
 
         await driver.quit();
+
+        const res = {
+            bookingID: req.to_book_id,
+            msg: `${req.username}'s booking for ${req.activity} on ${req.activity_day}/${req.activity_month}/${req.activity_year} has been fulfilled.`
+        }
+
+        return Promise.resolve(res);
     } catch (error) {
-        console.log(error);
+        const res = {
+            bookingID: req.to_book_id,
+            msg: `${req.username}'s booking for ${req.activity} on ${req.activity_day}/${req.activity_month}/${req.activity_year} has failed. Error: ${error}`
+        }
+
+        return Promise.reject(res);
     }
 }
 
