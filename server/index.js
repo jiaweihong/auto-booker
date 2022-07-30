@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const bookActivity = require('./bookActivity.js')
+const bookActivity = require('./bookActivity.js');
 const pool = require('./db.js');
 const cors = require('cors');
 
@@ -77,8 +77,6 @@ app.get('/api/ex_booking/:id', async (req, res) => {
         const booking = await pool.query(`SELECT * FROM to_book WHERE to_book_id = ${id}`);
 
         await bookActivity(booking.rows[0]);
-
-        console.log("done");
     } catch (error) {
         console.error(error);
     }
