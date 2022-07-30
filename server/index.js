@@ -71,18 +71,6 @@ app.delete('/api/bookings/:id', async (req, res) => {
     }
 })
 
-app.get('/api/ex_booking/:id', async (req, res) => {
-    try {
-        const {id} = req.params;
-        const booking = await pool.query(`SELECT * FROM booking WHERE booking_id = ${id}`);
-
-        await bookActivity(booking.rows[0]);
-    } catch (error) {
-        console.error(error);
-    }
-})
-
-
 app.listen(port, () => {
     console.log(`server listening on http://localhost:${port}`);
 })
