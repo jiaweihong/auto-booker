@@ -15,13 +15,11 @@ const job = new CronJob(
 	false,
 );
 
-
-
 const scheduleAllBookingsToday = async () => {
     try {
         const dateToday = new Date();
     
-        const allBookings = await pool.query(`SELECT * FROM to_book WHERE activity_day = ${dateToday.getDate()} AND activity_month = ${dateToday.getMonth()} AND activity_year = ${dateToday.getFullYear()}`);
+        const allBookings = await pool.query(`SELECT * FROM booking WHERE activity_day = ${dateToday.getDate()} AND activity_month = ${dateToday.getMonth()} AND activity_year = ${dateToday.getFullYear()}`);
     
         const bookingPromises = [];
     

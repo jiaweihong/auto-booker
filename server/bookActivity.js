@@ -180,14 +180,14 @@ async function bookActivity(req) {
         await driver.quit();
 
         const res = {
-            bookingID: req.to_book_id,
+            bookingID: req.booking_id,
             msg: `${req.username}'s booking for ${req.activity} on ${req.activity_day}/${req.activity_month}/${req.activity_year} has been fulfilled.`
         }
 
         return Promise.resolve(res);
     } catch (error) {
         const res = {
-            bookingID: req.to_book_id,
+            bookingID: req.booking_id,
             msg: `${req.username}'s booking for ${req.activity} on ${req.activity_day}/${req.activity_month}/${req.activity_year} has failed. Error: ${error}`
         }
 

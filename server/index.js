@@ -15,7 +15,7 @@ app.use(cors());
 
 app.get('/api/bookings', async (req, res) => {
     try {
-        const allToBooks = await pool.query(`SELECT * FROM to_book`);
+        const allToBooks = await pool.query(`SELECT * FROM booking`);
 
         res.json(allToBooks.rows);
     } catch (error) {
@@ -34,7 +34,7 @@ app.post('/api/bookings', async (req, res) => {
         const {activityYear} = req.body;
         const {activityHour} = req.body;
         
-        const addToBook = await pool.query(`INSERT INTO to_book(username, password, sports_centre, activity, activity_day, activity_month, activity_year, activity_hour) VALUES ('${username}', '${password}', '${sportsCentre}', '${activity}', ${activityDay}, ${activityMonth}, ${activityYear}, ${activityHour}) RETURNING *`);
+        const addToBook = await pool.query(`INSERT INTO booking(username, password, sports_centre, activity, activity_day, activity_month, activity_year, activity_hour) VALUES ('${username}', '${password}', '${sportsCentre}', '${activity}', ${activityDay}, ${activityMonth}, ${activityYear}, ${activityHour}) RETURNING *`);
 
         res.json(addToBook.rows[0]);
     } catch (error) {
@@ -52,7 +52,7 @@ app.put('/api/bookings/:id', async (req,res) => {
         const {activityYear} = req.body;
         const {activityHour} = req.body;
 
-        const updateToBook = await pool.query(`UPDATE to_book SET sports_centre = '${sportsCentre}', activity = '${activity}', activity_day = ${activityDay}, activity_month = ${activityMonth}, activity_year = ${activityYear}, activity_hour = ${activityHour} WHERE to_book_id = ${id}`);
+        const updateToBook = await pool.query(`UPDATE booking SET sports_centre = '${sportsCentre}', activity = '${activity}', activity_day = ${activityDay}, activity_month = ${activityMonth}, activity_year = ${activityYear}, activity_hour = ${activityHour} WHERE booking_id = ${id}`);
 
         res.json("Booking updated");
     } catch (error) {
@@ -63,7 +63,7 @@ app.put('/api/bookings/:id', async (req,res) => {
 app.delete('/api/bookings/:id', async (req, res) => {
     try {
         const {id} = req.params;
-        const deleteToBook = await pool.query(`DELETE FROM to_book WHERE to_book_id = ${id}`);
+        const deleteToBook = await pool.query(`DELETE FROM booking WHERE booking_id = ${id}`);
     
         res.json("Succesfully deleted");
     } catch (error) {
@@ -74,7 +74,7 @@ app.delete('/api/bookings/:id', async (req, res) => {
 app.get('/api/ex_booking/:id', async (req, res) => {
     try {
         const {id} = req.params;
-        const booking = await pool.query(`SELECT * FROM to_book WHERE to_book_id = ${id}`);
+        const booking = await pool.query(`SELECT * FROM booking WHERE booking_id = ${id}`);
 
         await bookActivity(booking.rows[0]);
     } catch (error) {
