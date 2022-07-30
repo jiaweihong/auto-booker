@@ -7,12 +7,13 @@ const bookActivity = require('./bookActivity.js');
 
 
 const job = new CronJob(
-	'* * * * *',
-    function() {
-		console.log(new Date());
-	},
+	'11 9 * * *',
+    async () => {
+        console.log("uk");
+    },
 	null,
-	false,
+	true,
+    'Europe/London'
 );
 
 const scheduleAllBookingsToday = async () => {
@@ -27,13 +28,28 @@ const scheduleAllBookingsToday = async () => {
             bookingPromises.push(bookActivity(booking));
         });
     
-        const result = await Promise.allSettled(bookingPromises)       
+        const result = await Promise.allSettled(bookingPromises);
+        console.log(result);
+        await updateDatabaseAfterExecutingBooking(result);
     } catch (error) {
         console.log(error);
     }
 }
 
-scheduleAllBookingsToday();
+const updateDatabaseAfterExecutingBooking = async (results) => {
+    results.forEach(async (result) => {
+        let is_success;
+        if (result.status == 'rejected'){
+            is_success = false;
+        } else if (result.status == 'fulfilled'){
+            is_success = true;
+        }
+
+        const updateBooking = await pool.query(`UPDATE booking SET is_booked = ${true}, is_success = ${is_success}, result_message = '${result.value}' WHERE booking_id = ${result.booking_id}`);
+    })
+}
+
+//scheduleAllBookingsToday();
 
 
 
