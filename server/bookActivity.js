@@ -74,7 +74,7 @@ function getDateOfActivity(req) {
 
     let month = monthsOfTheyear[req.activity_month];
 
-    activityDate = `${req.activity_day} ${month} ${req.activity_year}`;
+    activityDate = `${req.activity_day < 10 ? '0' + req.activity_day : req.activity_day} ${month} ${req.activity_year}`;
 
     return activityDate;
 }
@@ -115,7 +115,7 @@ async function getSlot(driver, req) {
             count++;
         }
 
-        let activityTime = `${req.activity_hour}:00`;
+        let activityTime = `${req.activity_hour < 10 ? "0" + req.activity_hour : req.activity_month}:00`;
 
         if (activityTime == timeTextFromSlot) {
             if (spaceDetailsText != "Full"){
@@ -180,15 +180,15 @@ async function bookActivity(req) {
         await driver.quit();
 
         const res = {
-            bookingID: req.booking_id,
-            msg: `${req.username}'s booking for ${req.activity} on ${req.activity_day}/${req.activity_month}/${req.activity_year} has been fulfilled.`
+            booking_id: req.booking_id,
+            message: "Success"
         }
 
         return Promise.resolve(res);
     } catch (error) {
         const res = {
-            bookingID: req.booking_id,
-            msg: `${req.username}'s booking for ${req.activity} on ${req.activity_day}/${req.activity_month}/${req.activity_year} has failed. Error: ${error}`
+            booking_id: req.booking_id,
+            msg: error.message
         }
 
         return Promise.reject(res);
