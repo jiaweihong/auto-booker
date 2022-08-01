@@ -12,7 +12,7 @@ const job = new CronJob(
         console.log("uk");
     },
 	null,
-	true,
+	false,
     'Europe/London'
 );
 
@@ -20,17 +20,20 @@ const scheduleAllBookingsToday = async () => {
     try {
         const dateToday = new Date();
     
-        const allBookings = await pool.query(`SELECT * FROM booking WHERE activity_day = ${dateToday.getDate()} AND activity_month = ${dateToday.getMonth()} AND activity_year = ${dateToday.getFullYear()}`);
-    
-        const bookingPromises = [];
-    
-        allBookings.rows.forEach((booking) => {
-            bookingPromises.push(bookActivity(booking));
-        });
-    
-        const result = await Promise.allSettled(bookingPromises);
-        console.log(result);
-        await updateDatabaseAfterExecutingBooking(result);
+        const allBookings = await pool.query(`SELECT * FROM booking WHERE activity_day = ${dateToday.getDate()} AND activity_month = ${dateToday.getMonth()} AND activity_year = ${dateToday.getFullYear()} AND is_booked = ${false}`);
+
+        if (allBookings.rows.length >= 1){
+            const bookingPromises = [];
+        
+            allBookings.rows.forEach((booking) => {
+                bookingPromises.push(bookActivity(booking));
+            });
+        
+            const result = await Promise.allSettled(bookingPromises);
+            await updateDatabaseAfterExecutingBooking(result);
+        } else {
+            console.log("No bookings to be made today.");
+        }
     } catch (error) {
         console.log(error);
     }
@@ -38,18 +41,23 @@ const scheduleAllBookingsToday = async () => {
 
 const updateDatabaseAfterExecutingBooking = async (results) => {
     results.forEach(async (result) => {
-        let is_success;
-        if (result.status == 'rejected'){
-            is_success = false;
-        } else if (result.status == 'fulfilled'){
-            is_success = true;
+        try {
+            let is_success;
+    
+            if (result.status == 'rejected'){
+                is_success = false;
+                const updateBooking = await pool.query(`UPDATE booking SET is_booked = ${true}, is_success = ${is_success}, result_message = '${result.reason.msg}' WHERE booking_id = ${result.reason.booking_id}`);
+            } else if (result.status == 'fulfilled'){
+                is_success = true;
+                const updateBooking = await pool.query(`UPDATE booking SET is_booked = ${true}, is_success = ${is_success}, result_message = '${result.value.message}' WHERE booking_id = ${result.value.booking_id}`);
+            }
+        } catch (error) {
+            console.log(error);
         }
-
-        const updateBooking = await pool.query(`UPDATE booking SET is_booked = ${true}, is_success = ${is_success}, result_message = '${result.value}' WHERE booking_id = ${result.booking_id}`);
     })
 }
 
-//scheduleAllBookingsToday();
+scheduleAllBookingsToday();
 
 
 
