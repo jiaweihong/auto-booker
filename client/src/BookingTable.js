@@ -1,49 +1,19 @@
-import React, { useState, useEffect} from 'react'
+import React from 'react'
 
-const BookingTable = () => {
-    const [pendingBookings, setPendingBookings] = useState([]);
-
-    const getPendingBookings = async () => {
-        try {
-            const res = await fetch("http://localhost:3000/api/pending_bookings");
-            const pendingBookings = await res.json();
-            
-            sortBookingsEarliestDate(pendingBookings);
-
-            setPendingBookings(pendingBookings);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    const sortBookingsEarliestDate = (pendingBookings) => {
-        pendingBookings.sort((a,b) => {
-            let dateA = new Date(a.activity_year, a.activity_month, a.activity_day, a.activity_hour);
-            let dateB = new Date(b.activity_year, b.activity_month, b.activity_day, b.activity_hour);
-
-            return dateB - dateA;
-        })
-    }
-
+const BookingTable = ({pendingBookings, getPendingBookings}) => {
     const deletePendingBooking = async (id) => {
         try {
             const deletePendingBooking = await fetch(`http://localhost:3000/api/pending_booking/${id}`, {
                 method: "DELETE"
             }); 
 
-            if (deletePendingBooking.status === 200){
-                setPendingBookings(pendingBookings.filter(booking => {return booking.booking_id !== id}));
-            } else {
-                console.log("something went wrong")
-            }
+           
+            getPendingBookings();
         } catch (error) {
             console.error(error)
         }
     }
 
-    useEffect(() => {
-        getPendingBookings();
-    }, []);
 
     return (
         <div className="container mt-5">

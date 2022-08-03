@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import CryptoJs from 'crypto-js';
 import DateTimePicker from 'react-datetime-picker';
 
-const BookingForm = () => {
+const BookingForm = ({pendingBookings, getPendingBookings}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [sportsCentre, setSportsCentre] = useState('David Ross');
@@ -52,7 +52,7 @@ const BookingForm = () => {
                 body: JSON.stringify(body)
             })
 
-            console.log(res);
+            getPendingBookings();
         } catch (error) {
             console.error(error);
         }
