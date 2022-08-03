@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get('/api/bookings', async (req, res) => {
+app.get('/api/pending_bookings', async (req, res) => {
     try {
-        const allToBooks = await pool.query(`SELECT * FROM booking`);
+        const allToBooks = await pool.query(`SELECT * FROM booking WHERE is_booked=${false}`);
 
         res.json(allToBooks.rows);
     } catch (error) {
@@ -60,7 +60,7 @@ app.put('/api/bookings/:id', async (req,res) => {
     }
 })
 
-app.delete('/api/bookings/:id', async (req, res) => {
+app.delete('/api/pending_booking/:id', async (req, res) => {
     try {
         const {id} = req.params;
         const deleteToBook = await pool.query(`DELETE FROM booking WHERE booking_id = ${id}`);

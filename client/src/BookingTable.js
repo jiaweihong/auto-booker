@@ -25,6 +25,22 @@ const BookingTable = () => {
         })
     }
 
+    const deletePendingBooking = async (id) => {
+        try {
+            const deletePendingBooking = await fetch(`http://localhost:3000/api/pending_booking/${id}`, {
+                method: "DELETE"
+            }); 
+
+            if (deletePendingBooking.status == 200){
+                setPendingBookings(pendingBookings.filter(booking => {return booking.booking_id !== id}));
+            } else {
+                console.log("something went wrong")
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     useEffect(() => {
         getBookings();
     }, []);
@@ -49,6 +65,16 @@ const BookingTable = () => {
                             <td>{booking.sports_centre}</td>
                             <td>{booking.activity}</td>
                             <td>{`${booking.activity_day}/${booking.activity_month}/${booking.activity_year} ${booking.activity_hour}:00`}</td>
+                            <td>
+                                <button className='btn btn-warning'>
+                                    Edit
+                                </button>
+                            </td>
+                            <td>
+                                <button className='btn btn-danger' onClick={() => {deletePendingBooking(booking.booking_id)}}>
+                                    Warning
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
