@@ -1,7 +1,7 @@
 import BookingForm from './BookingForm'
 import BookingTable from './BookingTable'
 
-function App(){
+const App = () => {
   return (
     <>
       <h1 className='text-center mt-5'>Auto Booker</h1>
