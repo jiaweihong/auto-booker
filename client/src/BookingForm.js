@@ -8,7 +8,6 @@ const BookingForm = () => {
     const [sportsCentre, setSportsCentre] = useState('David Ross');
     const [activity, setActivity] = useState('Volleyball - Hall C/D')
     const [dateTime, setDateTime] = useState(new Date());
-    dateTime.setMinutes(0);
 
     let davidRossActivities = ["Volleyball - Hall C/D"];
     let jubileeCampusActivities = ["Volleyball - Hall 1"];
@@ -61,57 +60,89 @@ const BookingForm = () => {
 
 
   return (
-    <form onSubmit={submitForm}>
-        <label>
-            Username
-        </label>
-        <input 
-            required 
-            placeholder='Not email' 
-            type='text' 
-            value={username} 
-            onChange={(e) => {setUsername(e.target.value)}}
-        />
+    <div className='container'>
+        <h1>Submit booking form</h1>
 
-        <label>
-            Password
-        </label>
-        <input 
-            required
-            type='text'
-            value={password}
-            onChange={(e) => {setPassword(e.target.value)}}
-        >
-        </input>
+        <form onSubmit={submitForm}>
+            <div className="row">
+                <div className="col-lg">
+                    <div className="input-group">
+                        <div className="input-group-text">Username</div>
+                    
+                        <input 
+                            required 
+                            placeholder='Not email' 
+                            type='text' 
+                            value={username} 
+                            onChange={(e) => {setUsername(e.target.value)}}
+                            className="form-control"
+                        />
+                    </div>
+                </div>
 
-        <label>
-            Sport Centre
-        </label>
-        <select
-            value={sportsCentre}
-            onChange={(e) => {setSportsCentre(e.target.value)}}
-        >
-            <option value="David Ross">David Ross</option>
-            <option value="Jubilee Campus">Jubilee Campus</option>
-        </select>
+                <div className="col-lg">
+                    <div className="input-group">
+                        <div className="input-group-text">Password</div>
+                        <input 
+                            required
+                            type='text'
+                            value={password}
+                            onChange={(e) => {setPassword(e.target.value)}}
+                            className="form-control"
+                        >
+                        </input>
+                    </div>
+                </div>
+            </div>
 
-        <label>
-            Activity
-        </label>
-        <select
-            value={activity}
-            onChange={(e) => {setActivity(e.target.value)}}
-        >
-            {activityOptions}
-        </select>
 
-        <label>
-            Date
-        </label>
-        <DateTimePicker onChange={setDateTime} value={dateTime} />
+            <div className="row mt-2">
+                <div className="col-lg">
+                    <div className="input-group">
+                        <div className="input-group-text">Sport Centre</div>
+                        <select
+                            value={sportsCentre}
+                            onChange={(e) => {setSportsCentre(e.target.value)}}
+                            className="form-select"
+                        >
+                            <option value="David Ross">David Ross</option>
+                            <option value="Jubilee Campus">Jubilee Campus</option>
+                        </select>
+                    </div>
+                </div>
 
-        <button type="submit">Submit</button>
-    </form>
+                <div className="col-lg">
+                    <div className="input-group">
+                        <div className="input-group-text">Activity</div>
+                        <select
+                            value={activity}
+                            onChange={(e) => {setActivity(e.target.value)}}
+                            className="form-select"
+                        >
+                            {activityOptions}
+                        </select>
+                    </div>
+                </div>
+
+                <div className="col-lg">
+                    <div className="input-group">
+                        <div className="input-group-text">Date</div>
+                        <DateTimePicker 
+                            onChange={setDateTime} 
+                            value={dateTime} 
+                            disableClock={true} 
+                            clearIcon={null}
+                            minDate={new Date()}
+                        />
+                    </div>
+                </div>
+
+                <div className="col-lg">
+                    <button type="submit" className="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
   )
 }
 
