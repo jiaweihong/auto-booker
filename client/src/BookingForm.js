@@ -61,7 +61,7 @@ const BookingForm = () => {
 
   return (
     <div className='container'>
-        <h1>Submit booking form</h1>
+        <h3 className='text-center'>Submit booking form</h3>
 
         <form onSubmit={submitForm}>
             <div className="row">

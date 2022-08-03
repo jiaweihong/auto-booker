@@ -1,43 +1,59 @@
 import React, { useState, useEffect} from 'react'
 
 const BookingTable = () => {
-    const [bookings, setBookings] = useState([]);
+    const [pendingBookings, setPendingBookings] = useState([]);
 
     const getBookings = async () => {
         try {
-            const res = await fetch("http://localhost:3000/api/bookings");
-    
-            console.log(await res.json());
+            const res = await fetch("http://localhost:3000/api/pending_bookings");
+            const pendingBookings = await res.json();
+            
+            sortBookingsEarliestDate(pendingBookings);
+
+            setPendingBookings(pendingBookings);
         } catch (error) {
             console.error(error);
         }
     }
 
+    const sortBookingsEarliestDate = (pendingBookings) => {
+        pendingBookings.sort((a,b) => {
+            let dateA = new Date(a.activity_year, a.activity_month, a.activity_day, a.activity_hour);
+            let dateB = new Date(b.activity_year, b.activity_month, b.activity_day, b.activity_hour);
+
+            return dateB - dateA;
+        })
+    }
+
     useEffect(() => {
-        getBookings()
+        getBookings();
     }, []);
-    
 
     return (
         <div className="container mt-5">
-            <table class="table">
+            <h3 className="text-center">Pending bookings</h3>
+            <table className="table">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Sport Centre</th>
+                    <th scope="col">Activity</th>
+                    <th scope="col">Date and Time</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    </tr>
+                    {pendingBookings.map(booking => (
+                        <tr key={booking.booking_id}>
+                            <td>{booking.username}</td>
+                            <td>{booking.sports_centre}</td>
+                            <td>{booking.activity}</td>
+                            <td>{`${booking.activity_day}/${booking.activity_month}/${booking.activity_year} ${booking.activity_hour}:00`}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
+
         </div>
     )
 }
