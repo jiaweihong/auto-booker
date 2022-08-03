@@ -32,11 +32,11 @@ const App = () => {
   useEffect(() => {
     getPendingBookings();
   }, []);
-  
+
   return (
     <>
       <h1 className='text-center mt-5'>Auto Booker</h1>
-      <BookingForm pendingBookings={pendingBookings} getPendingBookings={getPendingBookings}/>
+      <BookingForm getPendingBookings={getPendingBookings}/>
       <BookingTable pendingBookings={pendingBookings} getPendingBookings={getPendingBookings}/>
     </>
   )

@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const BookingTable = ({pendingBookings, getPendingBookings}) => {
+
+    let [page, setPage] = useState(1);
+    const entriesPerPage = 5;
     const deletePendingBooking = async (id) => {
         try {
             const deletePendingBooking = await fetch(`http://localhost:3000/api/pending_booking/${id}`, {
@@ -31,42 +34,44 @@ const BookingTable = ({pendingBookings, getPendingBookings}) => {
                 </thead>
 
                 <tbody>
-                    {pendingBookings.map(booking => (
-                        <tr key={booking.booking_id}>
-                            <td>{booking.username}</td>
-                            <td>{booking.sports_centre}</td>
-                            <td>{booking.activity}</td>
-                            <td>{`${booking.activity_day < 10 ? "0"+booking.activity_day : booking.activity_day}/${booking.activity_month < 10 ? "0"+booking.activity_month : booking.activity_month}/${booking.activity_year}`}</td>
-                            <td>{`${booking.activity_hour}:00`}</td>
-                            <td>
-                                <button className='btn btn-danger' onClick={() => {deletePendingBooking(booking.booking_id)}}>
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
+                    {
+                        pendingBookings.map((booking, index) => { 
+                            if (index >= page * entriesPerPage - entriesPerPage && index < page * entriesPerPage) {
+                                return (
+                                    <tr key={booking.booking_id}>
+                                        <td>{booking.username}</td>
+                                        <td>{booking.sports_centre}</td>
+                                        <td>{booking.activity}</td>
+                                        <td>{`${booking.activity_day < 10 ? "0"+booking.activity_day : booking.activity_day}/${booking.activity_month < 10 ? "0"+booking.activity_month : booking.activity_month}/${booking.activity_year}`}</td>
+                                        <td>{`${booking.activity_hour}:00`}</td>
+                                        <td>
+                                            <button className='btn btn-danger' onClick={() => {deletePendingBooking(booking.booking_id)}}>
+                                                Delete
+                                            </button>
+                                        </td>
+                                        <td>{index}</td>
+                                    </tr>
+                                )
+                            }
+                        })
+                    
+                    }
                 </tbody>
 
-
-                <nav aria-label="Page navigation example">
+                <nav>
                     <ul class="pagination">
                         <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
+                            <a class="page-link" onClick={() => {page >= 2 ? setPage(--page) : console.log(page)}}>
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
                         <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
+                            <a class="page-link" onClick={() => { page <= Math.ceil(pendingBookings.length/entriesPerPage) - 1 ? setPage(++page) : console.log(page)}}>
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
                         </li>
                     </ul>
                 </nav>
-
-
             </table>
 
         </div>
