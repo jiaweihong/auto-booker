@@ -1,7 +1,7 @@
 import BookingForm from './BookingForm'
-import BookingTable from './BookingTable'
+import PendingBookingTable from './PendingBookingTable'
+import BookingStats from './BookingStats'
 import React, { useState, useEffect } from 'react'
-
 
 const App = () => {
   const [pendingBookings, setPendingBookings] = useState([]);
@@ -37,7 +37,8 @@ const App = () => {
     <>
       <h1 className='text-center mt-2'>Auto Booker</h1>
       <BookingForm getPendingBookings={getPendingBookings}/>
-      <BookingTable pendingBookings={pendingBookings} getPendingBookings={getPendingBookings}/>
+      <PendingBookingTable pendingBookings={pendingBookings} getPendingBookings={getPendingBookings}/>
+      <BookingStats />
     </>
   )
 }

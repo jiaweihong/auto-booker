@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
-const BookingTable = ({pendingBookings, getPendingBookings}) => {
-
+const PendingBookingTable = ({pendingBookings, getPendingBookings}) => {
     let [page, setPage] = useState(1);
     const entriesPerPage = 7;
     const deletePendingBooking = async (id) => {
@@ -58,7 +57,6 @@ const BookingTable = ({pendingBookings, getPendingBookings}) => {
                                                 Delete
                                             </button>
                                         </td>
-                                        <td>{index}</td>
                                     </tr>
                                 )
                             }
@@ -90,4 +88,4 @@ const BookingTable = ({pendingBookings, getPendingBookings}) => {
     )
 }
 
-export default BookingTable;
+export default PendingBookingTable;

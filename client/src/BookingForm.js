@@ -58,6 +58,12 @@ const BookingForm = ({getPendingBookings}) => {
         }
     }
 
+    const getMinDate = () => {
+        let minDate = new Date();
+
+        return minDate;
+    }
+
 
   return (
     <div className='container mt-5'>
@@ -132,7 +138,7 @@ const BookingForm = ({getPendingBookings}) => {
                             value={dateTime} 
                             disableClock={true} 
                             clearIcon={null}
-                            minDate={new Date()}
+                            minDate={getMinDate()}
                         />
                     </div>
                 </div>
