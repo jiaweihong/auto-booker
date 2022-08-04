@@ -33,8 +33,8 @@ const BookingStats = () => {
     }, [])
 
     return (
-        <div className="container">
-            <h3 className="row text-center">
+        <div className="container mt-5">
+            <h3 className="text-center">
                 Booking Statistics
             </h3>
             
