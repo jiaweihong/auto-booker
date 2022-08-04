@@ -2,6 +2,7 @@ import BookingForm from './BookingForm'
 import PendingBookingTable from './PendingBookingTable'
 import BookingStats from './BookingStats'
 import PastBookingTable from './PastBookingTable';
+import Navbar from './Navbar.js'
 import React, { useState, useEffect } from 'react'
 
 const App = () => {
@@ -36,7 +37,7 @@ const App = () => {
 
   return (
     <>
-      <h1 className='text-center mt-2'>Auto Booker</h1>
+      <Navbar/>
       <BookingForm getPendingBookings={getPendingBookings}/>
       <PendingBookingTable pendingBookings={pendingBookings} getPendingBookings={getPendingBookings}/>
       <PastBookingTable/>
