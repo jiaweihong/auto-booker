@@ -35,7 +35,7 @@ const App = () => {
 
   return (
     <>
-      <h1 className='text-center mt-5'>Auto Booker</h1>
+      <h1 className='text-center mt-2'>Auto Booker</h1>
       <BookingForm getPendingBookings={getPendingBookings}/>
       <BookingTable pendingBookings={pendingBookings} getPendingBookings={getPendingBookings}/>
     </>

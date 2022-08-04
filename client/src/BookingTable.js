@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const BookingTable = ({pendingBookings, getPendingBookings}) => {
 
     let [page, setPage] = useState(1);
-    const entriesPerPage = 5;
+    const entriesPerPage = 7;
     const deletePendingBooking = async (id) => {
         try {
             const deletePendingBooking = await fetch(`http://localhost:3000/api/pending_booking/${id}`, {
@@ -17,10 +17,19 @@ const BookingTable = ({pendingBookings, getPendingBookings}) => {
         }
     }
 
+    const getLastEntryNumberBasedOnCurrentPage = () => {
+        if (page * entriesPerPage < pendingBookings.length){
+            return page * entriesPerPage;
+        } else {
+            return pendingBookings.length;
+        }
+    }
+
 
     return (
         <div className="container mt-5">
             <h3 className="text-center">Pending bookings</h3>
+
             <table className="table">
                 <thead>
                     <tr>
@@ -57,23 +66,26 @@ const BookingTable = ({pendingBookings, getPendingBookings}) => {
                     
                     }
                 </tbody>
+            </table>
 
-                <nav>
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" onClick={() => {page >= 2 ? setPage(--page) : console.log(page)}}>
+            <div className="row">
+                <div className="col text-muted">Showing {page * entriesPerPage - (entriesPerPage-1)} to {getLastEntryNumberBasedOnCurrentPage()} of {pendingBookings.length} bookings</div>
+
+                <div className="col">
+                    <ul className="pagination">
+                        <li className="page-item ms-auto">
+                            <a className="page-link" onClick={() => {page >= 2 ? setPage(--page) : console.log(page)}}>
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item">
-                            <a class="page-link" onClick={() => { page <= Math.ceil(pendingBookings.length/entriesPerPage) - 1 ? setPage(++page) : console.log(page)}}>
+                        <li className="page-item">
+                            <a className="page-link" onClick={() => { page <= Math.ceil(pendingBookings.length/entriesPerPage) - 1 ? setPage(++page) : console.log(page)}}>
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
                     </ul>
-                </nav>
-            </table>
-
+                </div>  
+            </div>
         </div>
     )
 }

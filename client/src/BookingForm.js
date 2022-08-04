@@ -60,7 +60,7 @@ const BookingForm = ({getPendingBookings}) => {
 
 
   return (
-    <div className='container'>
+    <div className='container mt-5'>
         <h3 className='text-center'>Submit booking form</h3>
 
         <form onSubmit={submitForm}>
