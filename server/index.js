@@ -15,9 +15,19 @@ app.use(cors());
 
 app.get('/api/pending_bookings', async (req, res) => {
     try {
-        const allToBooks = await pool.query(`SELECT * FROM booking WHERE is_booked=${false}`);
+        const pendingBookings = await pool.query(`SELECT * FROM booking WHERE is_booked=${false}`);
 
-        res.json(allToBooks.rows);
+        res.json(pendingBookings.rows);
+    } catch (error) {
+        console.error(error)
+    }
+})
+
+app.get('/api/past_bookings', async (req, res) => {
+    try {
+        const pastBookings = await pool.query(`SELECT * FROM booking WHERE is_booked=${true}`);
+
+        res.json(pastBookings.rows);
     } catch (error) {
         console.error(error)
     }
