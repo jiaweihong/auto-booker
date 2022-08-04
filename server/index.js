@@ -19,9 +19,40 @@ app.get('/api/pending_bookings', async (req, res) => {
 
         res.json(allToBooks.rows);
     } catch (error) {
-        
+        console.error(error)
     }
 })
+
+app.get('/api/number_pending_bookings', async (req, res) => {
+    try {
+        const numOfPendingBookings = await pool.query(`SELECT COUNT(*) FROM booking WHERE is_booked=${false}`);
+
+        res.json(numOfPendingBookings.rows[0]);
+    } catch (error) {
+        console.error(error)
+    }
+})
+
+app.get('/api/number_successful_bookings', async (req, res) => {
+    try {
+        const numOfPendingBookings = await pool.query(`SELECT COUNT(*) FROM booking WHERE is_booked=${true} AND is_success=${true}`);
+
+        res.json(numOfPendingBookings.rows[0]);
+    } catch (error) {
+        console.error(error)
+    }
+})
+
+app.get('/api/number_failed_bookings', async (req, res) => {
+    try {
+        const numOfPendingBookings = await pool.query(`SELECT COUNT(*) FROM booking WHERE is_booked=${true} AND is_success=${false}`);
+
+        res.json(numOfPendingBookings.rows[0]);
+    } catch (error) {
+        console.error(error)
+    }
+})
+
 
 app.post('/api/bookings', async (req, res) => {
     try {
