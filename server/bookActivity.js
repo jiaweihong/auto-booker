@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const req = require('./data.json');
 
-async function LogIntoBookingWebsite(driver, req){
+async function logIntoBookingWebsite(driver, req){
     let usernameField = await driver.wait(until.elementLocated(By.css('input[id="username"]')), 30000);
     await usernameField.sendKeys(req.username);
     
@@ -14,7 +14,7 @@ async function LogIntoBookingWebsite(driver, req){
     var password = bytes.toString(CryptoJs.enc.Utf8);
 
     let passwordField = await driver.wait(until.elementLocated(By.css('input[id="password"]')), 30000);
-    await passwordField.sendKeys(password);
+    await passwordField.sendKeys(req.password);
 
     let logIntoBookingWebsiteButton = await driver.wait(until.elementLocated(By.css('button[name="_eventId_proceed"]')), 30000);
     await logIntoBookingWebsiteButton.click();
@@ -147,6 +147,15 @@ async function payForBookings(driver){
     // next button pressed will be a pay now and we are not implementing that yet, as i do not have a membership;
 }
 
+async function isLogInSuccessful(driver){
+    try {
+        let errorElement = await driver.wait(until.elementLocated(By.css('p[class="form-element form-error"]')), 10000);
+        return errorElement;
+    } catch (error) {
+        return true;
+    }
+}
+
 async function bookActivity(req) {
     
     // 'eager' means that the get command will be considered complete when the DOM of the page is loaded
@@ -154,18 +163,24 @@ async function bookActivity(req) {
     caps.setPageLoadStrategy("eager");
 
     const options = new chrome.Options();
-    options.addArguments('--headless');
+    /*options.addArguments('--headless');
     options.addArguments("--window-size=1920,1080");
     options.addArguments("--disable-gpu");
-    options.addArguments("--no-sandbox");
+    options.addArguments("--no-sandbox");*/
     let driver = await new Builder().withCapabilities(caps).forBrowser("chrome").setChromeOptions(options).build();
     
     try {
         // opens up page
         await driver.get("https://sso.legendonlineservices.co.uk/sso/nottingham/enterprise");
         
-        await LogIntoBookingWebsite(driver, req);
-
+        await logIntoBookingWebsite(driver, req);
+       
+        let isSuccessfulLogIn = await isLogInSuccessful(driver);
+        
+        if(isSuccessfulLogIn != true){
+            throw new Error(await isSuccessfulLogIn.getText());
+        }
+    
         let makeBookingButton = await driver.wait(until.elementsLocated(By.css('a[data-test-id="account-bookings-dropins"]')), 60000);
         await makeBookingButton[1].click();
 
@@ -195,5 +210,16 @@ async function bookActivity(req) {
     }
 }
 
+async function main(){
+    try {
+        let p = await bookActivity(req);
+    
+        console.log(p);
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+main();
 
 module.exports = bookActivity;
