@@ -18,6 +18,12 @@ async function logIntoBookingWebsite(driver, req){
 
     let logIntoBookingWebsiteButton = await driver.wait(until.elementLocated(By.css('button[name="_eventId_proceed"]')), 30000);
     await logIntoBookingWebsiteButton.click();
+
+    let isSuccessfulLogIn = await isLogInSuccessful(driver);
+        
+    if(isSuccessfulLogIn != true){
+        throw new Error(await isSuccessfulLogIn.getText());
+    }
 }
 
 async function selectSportsCentreCategoryActivity(driver, req){
@@ -163,10 +169,10 @@ async function bookActivity(req) {
     caps.setPageLoadStrategy("eager");
 
     const options = new chrome.Options();
-    /*options.addArguments('--headless');
+    options.addArguments('--headless');
     options.addArguments("--window-size=1920,1080");
     options.addArguments("--disable-gpu");
-    options.addArguments("--no-sandbox");*/
+    options.addArguments("--no-sandbox");
     let driver = await new Builder().withCapabilities(caps).forBrowser("chrome").setChromeOptions(options).build();
     
     try {
@@ -174,12 +180,6 @@ async function bookActivity(req) {
         await driver.get("https://sso.legendonlineservices.co.uk/sso/nottingham/enterprise");
         
         await logIntoBookingWebsite(driver, req);
-       
-        let isSuccessfulLogIn = await isLogInSuccessful(driver);
-        
-        if(isSuccessfulLogIn != true){
-            throw new Error(await isSuccessfulLogIn.getText());
-        }
     
         let makeBookingButton = await driver.wait(until.elementsLocated(By.css('a[data-test-id="account-bookings-dropins"]')), 60000);
         await makeBookingButton[1].click();
