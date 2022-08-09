@@ -14,7 +14,7 @@ async function logIntoBookingWebsite(driver, req){
     var password = bytes.toString(CryptoJs.enc.Utf8);
 
     let passwordField = await driver.wait(until.elementLocated(By.css('input[id="password"]')), 30000);
-    await passwordField.sendKeys(req.password);
+    await passwordField.sendKeys(password);
 
     let logIntoBookingWebsiteButton = await driver.wait(until.elementLocated(By.css('button[name="_eventId_proceed"]')), 30000);
     await logIntoBookingWebsiteButton.click();

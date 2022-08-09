@@ -79,7 +79,7 @@ const PastBookingTable = () => {
                             </a>
                         </li>
                         <li className="page-item">
-                            <a className="page-link" onClick={() => { page <= Math.ceil(pastBookings.length/entriesPerPage) - 1 ? setPage(++page) : console.log(page)}}>
+                            <a className="page-link" onClick={() => {page <= Math.ceil(pastBookings.length/entriesPerPage) - 1 ? setPage(++page) : console.log(page)}}>
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

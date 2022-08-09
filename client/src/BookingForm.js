@@ -60,6 +60,7 @@ const BookingForm = ({getPendingBookings}) => {
 
     const getMinDate = () => {
         let minDate = new Date();
+        minDate.setDate(minDate.getDate() + 8);
 
         return minDate;
     }
