@@ -30,6 +30,7 @@ const PastBookingTable = () => {
         }
     }
 
+
     return (
         <div className="container mt-2">
             <h3 className="text-center">Past bookings</h3>
@@ -42,7 +43,7 @@ const PastBookingTable = () => {
                         <th scope="col">Activity</th>
                         <th scope="col">Date</th>
                         <th scope="col">Time</th>
-                        <th scope="col">Result</th>
+                        <th scope="col" style={{maxWidth: 200}}>Result</th>
                     </tr>
                 </thead>
 
@@ -57,7 +58,7 @@ const PastBookingTable = () => {
                                         <td>{booking.activity}</td>
                                         <td>{`${booking.activity_day < 10 ? "0"+booking.activity_day : booking.activity_day}/${booking.activity_month < 10 ? "0"+booking.activity_month : booking.activity_month}/${booking.activity_year}`}</td>
                                         <td>{`${booking.activity_hour}:00`}</td>
-                                        <td>
+                                        <td style={{maxWidth: 200}}>
                                             {booking.is_success ? "Success" : `Failed. ${booking.result_message}`}
                                         </td>
                                     </tr>
@@ -86,7 +87,6 @@ const PastBookingTable = () => {
                     </ul>
                 </div>  
             </div>
-
         </div>
     )
 }
