@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import CryptoJs from 'crypto-js';
 import DateTimePicker from 'react-datetime-picker';
+import './App.css'
 
 const BookingForm = ({getPendingBookings}) => {
     const [username, setUsername] = useState('');
@@ -8,6 +9,7 @@ const BookingForm = ({getPendingBookings}) => {
     const [sportsCentre, setSportsCentre] = useState('David Ross');
     const [activity, setActivity] = useState('Volleyball - Hall C/D')
     const [dateTime, setDateTime] = useState(new Date());
+    const [alertArr, setAlertArr] = useState([]);
 
     let davidRossActivities = ["Volleyball - Hall C/D"];
     let jubileeCampusActivities = ["Volleyball - Hall 1"];
@@ -53,8 +55,12 @@ const BookingForm = ({getPendingBookings}) => {
             })
 
             getPendingBookings();
+
+            updateAlertArr(res.status)
         } catch (error) {
             console.error(error);
+            updateAlertArr(400);
+
         }
     }
 
@@ -65,6 +71,33 @@ const BookingForm = ({getPendingBookings}) => {
         return minDate;
     }
 
+    const updateAlertArr = (status) => { 
+        let alert = '';
+        
+        if (status === 200) {
+            alert = (<div class="alert alert-success" role="alert">
+                Booking has been succesfully submitted
+            </div>)
+        } else {
+            alert = (<div class="alert alert-danger" role="alert">
+                Booking failed to submit. Please try again
+            </div>)
+        }
+        
+        setAlertArr(
+            () => [...alertArr, alert]
+        )
+
+        setTimeout(removeRecentlyAddedAlert, 5000)
+    }
+
+    const removeRecentlyAddedAlert = () => {
+        let alertDivArr = document.querySelectorAll('div.alert');
+        let index = alertDivArr.length-1;
+    
+        alertDivArr[index].remove();
+    }
+    
 
   return (
     <div className='container mt-5'>
@@ -147,8 +180,15 @@ const BookingForm = ({getPendingBookings}) => {
                 <div className="col-lg">
                     <button type="submit" className="btn btn-success">Submit</button>
                 </div>
+
             </div>
         </form>
+
+        {
+            alertArr.map((alert) => {
+                return (alert);
+            })
+        }
     </div>
   )
 }

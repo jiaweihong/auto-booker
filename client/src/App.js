@@ -1,7 +1,7 @@
 import BookingForm from './BookingForm'
 import PendingBookingTable from './PendingBookingTable'
 import BookingStats from './BookingStats'
-import PastBookingTable from './PastBookingTable';
+import PastBookingTable from './PastBookingTable'
 import Navbar from './Navbar.js'
 import React, { useState, useEffect } from 'react'
 
