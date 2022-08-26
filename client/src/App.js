@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react'
 
 const App = () => {
   const [pendingBookings, setPendingBookings] = useState([]);
+  const [alertArr, setAlertArr] = useState([]);
 
   const getPendingBookings = async () => {
     try {
@@ -38,8 +39,8 @@ const App = () => {
   return (
     <>
       <Navbar/>
-      <BookingForm getPendingBookings={getPendingBookings}/>
-      <PendingBookingTable pendingBookings={pendingBookings} getPendingBookings={getPendingBookings}/>
+      <BookingForm getPendingBookings={getPendingBookings} alertArr={alertArr} setAlertArr={setAlertArr}/>
+      <PendingBookingTable pendingBookings={pendingBookings} getPendingBookings={getPendingBookings} alertArr={alertArr} setAlertArr={setAlertArr}/>
       <PastBookingTable/>
       <BookingStats />
     </>

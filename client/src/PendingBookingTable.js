@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 
-const PendingBookingTable = ({pendingBookings, getPendingBookings}) => {
+const PendingBookingTable = ({pendingBookings, getPendingBookings, alertArr, setAlertArr}) => {
     let [page, setPage] = useState(1);
     const entriesPerPage = 7;
     const deletePendingBooking = async (id) => {
         try {
-            const deletePendingBooking = await fetch(`http://localhost:3000/api/pending_booking/${id}`, {
+            const res = await fetch(`http://localhost:3000/api/pending_booking/${id}`, {
                 method: "DELETE"
             }); 
 
            
             getPendingBookings();
+
+            updateAlertArr(res.status);
         } catch (error) {
             console.error(error)
         }
@@ -22,6 +24,48 @@ const PendingBookingTable = ({pendingBookings, getPendingBookings}) => {
         } else {
             return pendingBookings.length;
         }
+    }
+
+    const updateAlertArr = (status) => { 
+        console.log("update alert");
+
+        let alert = '';
+        
+        if (status === 200) {
+            alert = (<div className="alert alert-success" role="alert">
+                Booking has been succesfully deleted
+            </div>)
+        } else {
+            alert = (<div className="alert alert-danger" role="alert">
+                Booking failed to delete. Please try again
+            </div>)
+        }
+        
+        setAlertArr(
+            () => [...alertArr, alert]
+        )
+
+        console.log(alert);
+        removeRecentlyAddedAlertWithDelay(alert)
+    }
+    
+    const removeRecentlyAddedAlertWithDelay = (alert) => {
+        console.log('1');
+        alert.remove();
+
+        setTimeout(() => {
+            let alertDivArr = document.querySelectorAll('div.alert');
+            
+            let count = 0;
+            let tempAlert = alertDivArr[count];
+
+            while (alert !== tempAlert){
+                tempAlert = alertDivArr[++count];
+            }
+
+            console.log("removed alert");
+            alert.remove();
+        }, 5000)
     }
 
 
@@ -84,6 +128,12 @@ const PendingBookingTable = ({pendingBookings, getPendingBookings}) => {
                     </ul>
                 </div>  
             </div>
+
+            {
+                alertArr.map((alert) => {
+                    return (alert)
+                })
+            }
         </div>
     )
 }

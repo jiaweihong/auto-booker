@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CryptoJs from 'crypto-js';
 import DateTimePicker from 'react-datetime-picker';
 import './App.css'
 
-const BookingForm = ({getPendingBookings}) => {
+const BookingForm = ({getPendingBookings, alertArr, setAlertArr}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [sportsCentre, setSportsCentre] = useState('David Ross');
     const [activity, setActivity] = useState('Volleyball - Hall C/D')
     const [dateTime, setDateTime] = useState(new Date());
-    const [alertArr, setAlertArr] = useState([]);
 
     let davidRossActivities = ["Volleyball - Hall C/D"];
     let jubileeCampusActivities = ["Volleyball - Hall 1"];
@@ -26,15 +25,50 @@ const BookingForm = ({getPendingBookings}) => {
         activityOptions = dropdownActivies.map((activity) => <option key={activity} value={activity}> {activity} </option>);
     }
 
+    const setActivityStateTo1stInList = async () => {
+        if (sportsCentre == "Jubilee Campus") {
+            setActivity(jubileeCampusActivities[0]);
+        } else if (sportsCentre == "David Ross") {
+            setActivity(davidRossActivities[0]);
+        }
+    }
+
     const encryptPassword = (password) => {
         var ciphertext = CryptoJs.AES.encrypt(password, process.env.REACT_APP_ENCRYPTION_SECRET);
         let encryptedPassword = ciphertext.toString();
         return encryptedPassword; 
     }
 
+    const updateAlertArr = (status) => { 
+        let alert = '';
+        
+        if (status === 200) {
+            alert = (<div className="alert alert-success" role="alert">
+                Booking has been succesfully submitted
+            </div>)
+        } else {
+            alert = (<div className="alert alert-danger" role="alert">
+                Booking failed to submit. Please try again
+            </div>)
+        }
+        
+        setAlertArr(
+            () => [...alertArr, alert]
+        )
+
+        setTimeout(removeRecentlyAddedAlert, 5000)
+    }
+
+    const removeRecentlyAddedAlert = () => {
+        let alertDivArr = document.querySelectorAll('div.alert');
+        let index = alertDivArr.length-1;
+
+        alertDivArr[index].remove();
+    }
+
     const submitForm = async (e) => {
         e.preventDefault();
-
+        console.log(`right before submit ${activity}`)
         let encryptedPassword = encryptPassword(password);
         try {
             const body = {
@@ -59,44 +93,19 @@ const BookingForm = ({getPendingBookings}) => {
             updateAlertArr(res.status)
         } catch (error) {
             console.error(error);
-            updateAlertArr(400);
-
         }
     }
 
     const getMinDate = () => {
         let minDate = new Date();
-        minDate.setDate(minDate.getDate() + 8);
+        minDate.setDate(minDate.getDate());
 
         return minDate;
     }
 
-    const updateAlertArr = (status) => { 
-        let alert = '';
-        
-        if (status === 200) {
-            alert = (<div class="alert alert-success" role="alert">
-                Booking has been succesfully submitted
-            </div>)
-        } else {
-            alert = (<div class="alert alert-danger" role="alert">
-                Booking failed to submit. Please try again
-            </div>)
-        }
-        
-        setAlertArr(
-            () => [...alertArr, alert]
-        )
-
-        setTimeout(removeRecentlyAddedAlert, 5000)
-    }
-
-    const removeRecentlyAddedAlert = () => {
-        let alertDivArr = document.querySelectorAll('div.alert');
-        let index = alertDivArr.length-1;
-    
-        alertDivArr[index].remove();
-    }
+    useEffect(() => {
+        setActivityStateTo1stInList();
+    }, [sportsCentre])
     
 
   return (
