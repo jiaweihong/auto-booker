@@ -77,7 +77,7 @@ const BookingForm = ({getPendingBookings, alertArr, setAlertArr}) => {
                 sportsCentre: sportsCentre,
                 activity: activity,
                 activityDay: dateTime.getDate(),
-                activityMonth: dateTime.getMonth(),
+                activityMonth: dateTime.getMonth() + 1,
                 activityYear: dateTime.getFullYear(),
                 activityHour: dateTime.getHours()
             }

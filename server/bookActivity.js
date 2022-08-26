@@ -4,7 +4,7 @@ const CryptoJs = require('crypto-js');
 const chrome = require('selenium-webdriver/chrome');
 require('dotenv').config();
 
-const req = require('./data.json');
+//const req = require('./data.json');
 
 async function logIntoBookingWebsite(driver, req){
     let usernameField = await driver.wait(until.elementLocated(By.css('input[id="username"]')), 30000);
@@ -169,7 +169,7 @@ async function bookActivity(req) {
     caps.setPageLoadStrategy("eager");
 
     const options = new chrome.Options();
-    options.addArguments('--headless');
+    //options.addArguments('--headless');
     options.addArguments("--window-size=1920,1080");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
@@ -209,17 +209,5 @@ async function bookActivity(req) {
         return Promise.reject(res);
     }
 }
-
-async function main(){
-    try {
-        let p = await bookActivity(req);
-    
-        console.log(p);
-        
-    } catch (error) {
-        console.log(error);
-    }
-}
-main();
 
 module.exports = bookActivity;
