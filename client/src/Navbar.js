@@ -5,7 +5,11 @@ const Navbar = () => {
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                Autobooker
+                    Autobooker
+                </a>
+
+                <a class="navbar-brand" href="/faq">
+                    FAQ
                 </a>
             </div>
         </nav>

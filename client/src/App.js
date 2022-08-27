@@ -1,9 +1,7 @@
-import BookingForm from './BookingForm'
-import PendingBookingTable from './PendingBookingTable'
-import BookingStats from './BookingStats'
-import PastBookingTable from './PastBookingTable'
+
 import Navbar from './Navbar.js'
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 const App = () => {
   const [pendingBookings, setPendingBookings] = useState([]);
@@ -38,11 +36,18 @@ const App = () => {
 
   return (
     <>
-      <Navbar/>
-      <BookingForm getPendingBookings={getPendingBookings} alertArr={alertArr} setAlertArr={setAlertArr}/>
-      <PendingBookingTable pendingBookings={pendingBookings} getPendingBookings={getPendingBookings} alertArr={alertArr} setAlertArr={setAlertArr}/>
-      <PastBookingTable/>
-      <BookingStats />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Navbar />} >
+          <Route path='/' element={<BookingForm />}></Route>
+          <Route path='/' element={<PendingBookingTable />}></Route>
+          <Route path='/' element={<PastBookingTable />}></Route>
+          <Route path='/'element={<BookingStats />}></Route>
+
+
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

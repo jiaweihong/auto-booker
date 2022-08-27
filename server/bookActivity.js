@@ -207,7 +207,6 @@ async function isLogInSuccessful(driver){
 }
 
 async function bookActivity(req) {
-    
     // 'eager' means that the get command will be considered complete when the DOM of the page is loaded
     const caps = new Capabilities();
     caps.setPageLoadStrategy("eager");
