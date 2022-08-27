@@ -57,12 +57,57 @@ async function selectsSportCentre(driver, sportsCentre) {
 
 async function selectActivity(driver, activity){
     if (activity == "Volleyball - Hall C/D" ){
-        let volleyball_DR_CD = await driver.wait(until.elementLocated(By.id('booking-activity-option279')), 30000);
-        await volleyball_DR_CD.click();
-    } else if (activity == "Volleyball - Hall 1"){
-        let volleyball_JC_H1 = await driver.wait(until.elementLocated(By.id('booking-activity-option87')), 30000);
-        await volleyball_JC_H1.click();
-    } else {
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option279')), 30000);
+        await option.click();
+    } 
+    else if (activity == "Basketball 1/2 Court - Hall C/D"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option271')), 30000);
+        await option.click();
+    } 
+    else if (activity == "Basketball 1/2 Court - Hall A/B"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option270')), 30000);
+        await option.click();
+    } 
+    else if (activity == "Basketball Cross Court - Hall C/D (Near)"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option362')), 30000);
+        await option.click();
+    } 
+    else if (activity == "Basketball Full Court - Hall C/D"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option273')), 30000);
+        await option.click();
+    } 
+    else if (activity == "Basketball Full Court - Hall A/B"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option272')), 30000);
+        await option.click();
+    } 
+    else if (activity == "Basketball Cross Court - Hall C/D (Far)"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option361')), 30000);
+        await option.click();
+    } 
+
+
+    else if (activity == "Volleyball - Hall 1"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option87')), 30000);
+        await option.click();
+    } 
+    else if (activity == "Basketball 1/2 Court - Hall 2"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option134')), 30000);
+        await option.click();
+    } 
+    else if (activity == "Basketball 1/2 Court - Hall 1"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option75')), 30000);
+        await option.click();
+    } 
+    else if (activity == "Basketball Full Court - Hall 1"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option76')), 30000);
+        await option.click();
+    } 
+    else if (activity == "Basketball Full Court - Hall 2"){
+        let option = await driver.wait(until.elementLocated(By.id('booking-activity-option135')), 30000);
+        await option.click();
+    }
+    
+    else {
         throw new Error("No valid activity was chosen");
     }
 }

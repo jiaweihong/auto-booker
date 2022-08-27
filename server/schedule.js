@@ -21,8 +21,6 @@ const scheduleAllBookingsToday = async () => {
         const dateToday = new Date();
         
         const allBookings = await pool.query(`SELECT * FROM booking WHERE activity_day = ${dateToday.getDate()} AND activity_month = ${dateToday.getMonth() + 1} AND activity_year = ${dateToday.getFullYear()} AND is_booked = ${false}`);
-
-        console.log(allBookings.rows);
         
         if (allBookings.rows.length >= 1){
             const bookingPromises = [];
