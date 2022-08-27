@@ -78,7 +78,7 @@ async function buyNowActivity(driver, req){
 function getDateOfActivity(req) {
     const monthsOfTheyear = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-    let month = monthsOfTheyear[req.activity_month];
+    let month = monthsOfTheyear[req.activity_month - 1];
 
     activityDate = `${req.activity_day < 10 ? '0' + req.activity_day : req.activity_day} ${month} ${req.activity_year}`;
 
@@ -121,7 +121,7 @@ async function getSlot(driver, req) {
             count++;
         }
 
-        let activityTime = `${req.activity_hour < 10 ? "0" + req.activity_hour : req.activity_month}:00`;
+        let activityTime = `${req.activity_hour < 10 ? "0" + req.activity_hour : req.activity_hour}:00`;
 
         if (activityTime == timeTextFromSlot) {
             if (spaceDetailsText != "Full"){
@@ -141,7 +141,6 @@ async function buyNowSlot(driver, slot){
 
     let button = await driver.wait(until.elementLocated(By.css('button[data-test-id="bookings-sportshall-activitydetails-addandbookanother"]')), 30000);
     await driver.executeScript("arguments[0].click();", button);
-    console.log("booked");
 }
 
 async function payForBookings(driver){
@@ -169,7 +168,7 @@ async function bookActivity(req) {
     caps.setPageLoadStrategy("eager");
 
     const options = new chrome.Options();
-    //options.addArguments('--headless');
+    options.addArguments('--headless');
     options.addArguments("--window-size=1920,1080");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");

@@ -19,9 +19,10 @@ const job = new CronJob(
 const scheduleAllBookingsToday = async () => {
     try {
         const dateToday = new Date();
-        console.log(`SELECT * FROM booking WHERE activity_day = ${dateToday.getDate()} AND activity_month = ${dateToday.getMonth()} AND activity_year = ${dateToday.getFullYear()} AND is_booked = ${false}`)
-        const allBookings = await pool.query(`SELECT * FROM booking WHERE activity_day = ${dateToday.getDate()} AND activity_month = ${dateToday.getMonth() + 1} AND activity_year = ${dateToday.getFullYear()} AND is_booked = ${false}`);
         
+        const allBookings = await pool.query(`SELECT * FROM booking WHERE activity_day = ${dateToday.getDate()} AND activity_month = ${dateToday.getMonth() + 1} AND activity_year = ${dateToday.getFullYear()} AND is_booked = ${false}`);
+
+        console.log(allBookings.rows);
         
         if (allBookings.rows.length >= 1){
             const bookingPromises = [];
