@@ -10,8 +10,8 @@ const BookingForm = ({getPendingBookings, alertArr, setAlertArr}) => {
     const [activity, setActivity] = useState('Volleyball - Hall C/D')
     const [dateTime, setDateTime] = useState(new Date());
 
-    let davidRossActivities = ["Volleyball - Hall C/D"];
-    let jubileeCampusActivities = ["Volleyball - Hall 1"];
+    let davidRossActivities = ["Volleyball - Hall C/D", "Basketball 1/2 Court - Hall C/D", "Basketball 1/2 Court - Hall A/B", "Basketball Cross Court - Hall C/D (Near)", "Basketball Full Court - Hall C/D", "Basketball Full Court - Hall A/B", "Basketball Cross Court - Hall C/D (Far)"];
+    let jubileeCampusActivities = ["Volleyball - Hall 1", "Basketball 1/2 Court - Hall 2", "Basketball 1/2 Court - Hall 1", "Basketball Full Court - Hall 1", "Basketball Full Court - Hall 2"];
     let dropdownActivies = null;
     let activityOptions = null;
 
