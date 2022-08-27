@@ -46,12 +46,12 @@ const BookingStats = () => {
 
                 <div className="col">
                     <h4 className="text-success">Success</h4>
-                    <h5>{numFailedBookings}</h5>
+                    <h5>{numSuccessfulBooking}</h5>
                 </div>
 
                 <div className="col">
                     <h4 className="text-danger">Failure</h4>
-                    <h5>{numSuccessfulBooking}</h5>
+                    <h5>{numFailedBookings}</h5>
                 </div>
             </div>
         </div>
