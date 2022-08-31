@@ -10,7 +10,7 @@ const MainPage = () => {
 
     const getPendingBookings = async () => {
     try {
-        const res = await fetch("http://localhost:3000/api/pending_bookings");
+        const res = await fetch("/api/pending_bookings");
         const pendingBookings = await res.json();
         
         sortBookingsEarliestDate(pendingBookings);

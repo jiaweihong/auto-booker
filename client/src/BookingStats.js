@@ -6,21 +6,21 @@ const BookingStats = () => {
     const [numSuccessfulBooking, setNumSuccessfulBooking] = useState(0);
 
     const getNumPendingBookings = async () => {
-        const res = await fetch("http://localhost:3000/api/number_pending_bookings");
+        const res = await fetch("/api/number_pending_bookings");
         const numPendingBookings = await res.json();
         
         setNumPendingBookings(numPendingBookings.count);
     }
 
     const getNumFailedBookings = async () => {
-        const res = await fetch("http://localhost:3000/api/number_failed_bookings");
+        const res = await fetch("/api/number_failed_bookings");
         const numFailedBookings = await res.json();
         
         setNumFailedBookings(numFailedBookings.count);
     }
 
     const getNumSuccessfulBooking = async () => {
-        const res = await fetch("http://localhost:3000/api/number_successful_bookings");
+        const res = await fetch("/api/number_successful_bookings");
         const numSuccessfulBookings = await res.json();
         
         setNumSuccessfulBooking(numSuccessfulBookings.count);

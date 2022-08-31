@@ -5,7 +5,7 @@ const PendingBookingTable = ({pendingBookings, getPendingBookings, alertArr, set
     const entriesPerPage = 7;
     const deletePendingBooking = async (id) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/pending_booking/${id}`, {
+            const res = await fetch(`/api/pending_booking/${id}`, {
                 method: "DELETE"
             }); 
 

@@ -82,7 +82,7 @@ const BookingForm = ({getPendingBookings, alertArr, setAlertArr}) => {
                 activityHour: dateTime.getHours()
             }
 
-            const res = await fetch("http://localhost:3000/api/bookings", {
+            const res = await fetch("/api/bookings", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)

@@ -7,7 +7,7 @@ const PastBookingTable = () => {
 
     const getPastBookings = async () => {
         try {
-            const res = await fetch(`http://localhost:3000/api/past_bookings`);
+            const res = await fetch(`/api/past_bookings`);
             const pastBookingsData = await res.json();
 
             setPastBookings(pastBookingsData);
