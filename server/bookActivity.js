@@ -117,7 +117,7 @@ async function buyNowActivity(driver, req){
 
     let slot = await getSlot(driver, req)
 
-    await buyNowSlot(driver, slot);
+    await addToBasket(driver, slot);
 }
 
 function getDateOfActivity(req) {
@@ -181,7 +181,7 @@ async function getSlot(driver, req) {
     throw new Error("The time slot selected does not exist.")
 }
 
-async function buyNowSlot(driver, slot){
+async function addToBasket(driver, slot){
     await slot.click();
 
     let button = await driver.wait(until.elementLocated(By.css('button[data-test-id="bookings-sportshall-activitydetails-addandbookanother"]')), 30000);
@@ -190,11 +190,19 @@ async function buyNowSlot(driver, slot){
 
 async function payForBookings(driver){
     let basketSummaryContinueButton = await driver.wait(until.elementLocated(By.css('button[data-test-id="universalbasket-paymentsummary-continueoptions-continue"]')), 30000);
-    await basketSummaryContinueButton.click();
+    await driver.executeScript("arguments[0].click();", basketSummaryContinueButton);
 
-    await basketSummaryContinueButton.click();
+    let termAndConditionsButton = await driver.wait(until.elementLocated(By.css('input[data-test-id="shared-checkbox-i-accept-the-terms-&-conditions-input"]')), 30000)
+    await driver.executeScript("arguments[0].click();", termAndConditionsButton);
 
-    // next button pressed will be a pay now and we are not implementing that yet, as i do not have a membership;
+    
+    let basketSummaryContinueButton2 = await driver.wait(until.elementLocated(By.css('button[data-test-id="universalbasket-paymentsummary-continueoptions-continue"]')), 30000);
+    while (basketSummaryContinueButton2.isEnabled() != true ){
+        basketSummaryContinueButton2 = await driver.wait(until.elementLocated(By.css('button[data-test-id="universalbasket-paymentsummary-continueoptions-continue"]')), 30000);
+        console.log("waiting");
+    }
+    console.log(1);
+    await driver.executeScript("arguments[0].click();", basketSummaryContinueButton2);
 }
 
 async function isLogInSuccessful(driver){
@@ -212,7 +220,7 @@ async function bookActivity(req) {
     caps.setPageLoadStrategy("eager");
 
     const options = new chrome.Options();
-    options.addArguments('--headless');
+    //options.addArguments('--headless');
     options.addArguments("--window-size=1920,1080");
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
@@ -231,11 +239,11 @@ async function bookActivity(req) {
 
         await buyNowActivity(driver, req);
 
-        //await driver.navigate().to("https://universityofnottingham.legendonlineservices.co.uk/enterprise/universalbasket/summary");
+        await driver.navigate().to("https://universityofnottingham.legendonlineservices.co.uk/enterprise/universalbasket/summary");
 
-        //await payForBookings(driver);
+        await payForBookings(driver);
 
-        await driver.quit();
+        //await driver.quit();
 
         const res = {
             booking_id: req.booking_id,
