@@ -68,7 +68,7 @@ const BookingForm = ({getPendingBookings, alertArr, setAlertArr}) => {
 
     const submitForm = async (e) => {
         e.preventDefault();
-        console.log(`right before submit ${activity}`)
+ 
         let encryptedPassword = encryptPassword(password);
         try {
             const body = {

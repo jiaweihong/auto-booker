@@ -11,8 +11,6 @@ const PastBookingTable = () => {
             const pastBookingsData = await res.json();
 
             setPastBookings(pastBookingsData);
-
-            console.log(pastBookings);
         } catch (error) {
             console.error(error)
         }

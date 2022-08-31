@@ -50,9 +50,6 @@ const PendingBookingTable = ({pendingBookings, getPendingBookings, alertArr, set
     }
     
     const removeRecentlyAddedAlertWithDelay = (alert) => {
-        console.log('1');
-        alert.remove();
-
         setTimeout(() => {
             let alertDivArr = document.querySelectorAll('div.alert');
             
@@ -62,9 +59,6 @@ const PendingBookingTable = ({pendingBookings, getPendingBookings, alertArr, set
             while (alert !== tempAlert){
                 tempAlert = alertDivArr[++count];
             }
-
-            console.log("removed alert");
-            alert.remove();
         }, 5000)
     }
 
