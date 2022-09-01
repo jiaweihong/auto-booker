@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Book courts automatically",
   "main": "index.js",
+  "engines": {
+    "node": "18.4.0",
+    "npm": "8.13.1"
+  },
   "scripts": {
     "start": "npm start --prefix server",
     "install-client": "cd client && npm install && npm run build && cd..",
