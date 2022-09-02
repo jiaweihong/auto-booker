@@ -26,9 +26,9 @@ const BookingForm = ({getPendingBookings, alertArr, setAlertArr}) => {
     }
 
     const setActivityStateTo1stInList = async () => {
-        if (sportsCentre == "Jubilee Campus") {
+        if (sportsCentre === "Jubilee Campus") {
             setActivity(jubileeCampusActivities[0]);
-        } else if (sportsCentre == "David Ross") {
+        } else if (sportsCentre === "David Ross") {
             setActivity(davidRossActivities[0]);
         }
     }
