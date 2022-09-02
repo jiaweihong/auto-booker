@@ -12,6 +12,8 @@ const MainPage = () => {
     try {
         const res = await fetch("/api/pending_bookings");
         const pendingBookings = await res.json();
+
+        console.log(pendingBookings);
         
         sortBookingsEarliestDate(pendingBookings);
 
@@ -23,12 +25,12 @@ const MainPage = () => {
 
 
     const sortBookingsEarliestDate = (pendingBookings) => {
-    pendingBookings.sort((a,b) => {
-        let dateA = new Date(a.activity_year, a.activity_month, a.activity_day, a.activity_hour);
-        let dateB = new Date(b.activity_year, b.activity_month, b.activity_day, b.activity_hour);
-        
-        return dateB - dateA;
-    })
+        pendingBookings.sort((a,b) => {
+            let dateA = new Date(a.activity_year, a.activity_month, a.activity_day, a.activity_hour);
+            let dateB = new Date(b.activity_year, b.activity_month, b.activity_day, b.activity_hour);
+            
+            return dateB - dateA;
+        })
     }
 
     useEffect(() => {
@@ -39,7 +41,7 @@ const MainPage = () => {
         <>
             <BookingForm getPendingBookings={getPendingBookings} alertArr={alertArr} setAlertArr={setAlertArr}/>
             <PendingBookingTable pendingBookings={pendingBookings} getPendingBookings={getPendingBookings} alertArr={alertArr} setAlertArr={setAlertArr}/>
-            <PastBookingTable/>
+            <PastBookingTable sortBookingsEarliestDate={sortBookingsEarliestDate}/>
             <BookingStats />
         </>
     )

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const PastBookingTable = () => {
+const PastBookingTable = ({sortBookingsEarliestDate}) => {
     let [page, setPage] = useState(1);
     const entriesPerPage = 7;
     const [pastBookings, setPastBookings] = useState([])
@@ -9,6 +9,8 @@ const PastBookingTable = () => {
         try {
             const res = await fetch(`/api/past_bookings`);
             const pastBookingsData = await res.json();
+
+            sortBookingsEarliestDate(pastBookingsData);
 
             setPastBookings(pastBookingsData);
         } catch (error) {
