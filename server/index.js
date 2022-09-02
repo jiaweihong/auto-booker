@@ -118,6 +118,7 @@ app.delete('/api/pending_booking/:id', async (req, res) => {
 })
 
 app.listen(port, () => {
+    
     console.log(`server listening on port ${port}`);
 })
 
