@@ -4,8 +4,6 @@ const CryptoJs = require('crypto-js');
 const chrome = require('selenium-webdriver/chrome');
 require('dotenv').config();
 
-//const req = require('./data.json');
-
 async function logIntoBookingWebsite(driver, req){
     let usernameField = await driver.wait(until.elementLocated(By.css('input[id="username"]')), 30000);
     await usernameField.sendKeys(req.username);
