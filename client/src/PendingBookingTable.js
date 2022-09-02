@@ -27,8 +27,6 @@ const PendingBookingTable = ({pendingBookings, getPendingBookings, alertArr, set
     }
 
     const updateAlertArr = (status) => { 
-        console.log("update alert");
-
         let alert = '';
         
         if (status === 200) {
@@ -45,7 +43,6 @@ const PendingBookingTable = ({pendingBookings, getPendingBookings, alertArr, set
             () => [...alertArr, alert]
         )
 
-        console.log(alert);
         removeRecentlyAddedAlertWithDelay(alert)
     }
     
@@ -110,14 +107,14 @@ const PendingBookingTable = ({pendingBookings, getPendingBookings, alertArr, set
                 <div className="col">
                     <ul className="pagination">
                         <li className="page-item ms-auto">
-                            <a className="page-link" onClick={() => {page >= 2 ? setPage(--page) : console.log(page)}}>
+                            <button className="page-link" onClick={() => {page >= 2 ? setPage(--page) : console.log(page)}}>
                                 <span aria-hidden="true">&laquo;</span>
-                            </a>
+                            </button>
                         </li>
                         <li className="page-item">
-                            <a className="page-link" onClick={() => { page <= Math.ceil(pendingBookings.length/entriesPerPage) - 1 ? setPage(++page) : console.log(page)}}>
+                            <button className="page-link" aonClick={() => { page <= Math.ceil(pendingBookings.length/entriesPerPage) - 1 ? setPage(++page) : console.log(page)}}>
                                 <span aria-hidden="true">&raquo;</span>
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </div>  
