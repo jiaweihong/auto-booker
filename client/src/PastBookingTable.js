@@ -14,7 +14,7 @@ const PastBookingTable = ({sortBookingsEarliestDate}) => {
 
             setPastBookings(pastBookingsData);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 

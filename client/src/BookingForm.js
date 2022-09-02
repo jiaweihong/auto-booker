@@ -34,7 +34,10 @@ const BookingForm = ({getPendingBookings, alertArr, setAlertArr}) => {
     }
 
     const encryptPassword = (password) => {
+        console.log(password);
         var ciphertext = CryptoJs.AES.encrypt(password, process.env.REACT_APP_ENCRYPTION_SECRET);
+        console.log("after");
+
         let encryptedPassword = ciphertext.toString();
         return encryptedPassword; 
     }

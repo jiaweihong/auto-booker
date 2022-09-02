@@ -14,7 +14,7 @@ const PendingBookingTable = ({pendingBookings, getPendingBookings, alertArr, set
 
             updateAlertArr(res.status);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
