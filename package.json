@@ -10,8 +10,8 @@
   "scripts": {
     "start": "npm start --prefix server",
     "install-client": "cd client && npm install && npm run build && cd ..",
-    "install-server": "cd server && npm install && npm start && cd ..",
-    "heroku-postbuild": "npm run install-server && npm run install-client"
+    "install-server": "cd server && npm install && cd ..",
+    "heroku-postbuild": "npm run install-client"
   },
   "repository": {
     "type": "git",
