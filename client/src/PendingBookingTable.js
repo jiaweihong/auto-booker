@@ -107,14 +107,14 @@ const PendingBookingTable = ({pendingBookings, getPendingBookings, alertArr, set
                 <div className="col">
                     <ul className="pagination">
                         <li className="page-item ms-auto">
-                            <button className="page-link" onClick={() => {page >= 2 ? setPage(--page) : console.log(page)}}>
+                            <a className="page-link" onClick={() => {page >= 2 ? setPage(--page) : console.log(page)}}>
                                 <span aria-hidden="true">&laquo;</span>
-                            </button>
+                            </a>
                         </li>
                         <li className="page-item">
-                            <button className="page-link" aonClick={() => { page <= Math.ceil(pendingBookings.length/entriesPerPage) - 1 ? setPage(++page) : console.log(page)}}>
+                            <a className="page-link" aonClick={() => { page <= Math.ceil(pendingBookings.length/entriesPerPage) - 1 ? setPage(++page) : console.log(page)}}>
                                 <span aria-hidden="true">&raquo;</span>
-                            </button>
+                            </a>
                         </li>
                     </ul>
                 </div>  
