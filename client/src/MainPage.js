@@ -4,7 +4,7 @@ import BookingStats from './BookingStats'
 import PastBookingTable from './PastBookingTable'
 import { useState, useEffect } from 'react'
 
-const main = () => {
+const MainPage = () => {
     const [pendingBookings, setPendingBookings] = useState([]);
     const [alertArr, setAlertArr] = useState([]);
 
@@ -47,4 +47,4 @@ const main = () => {
     )
 }
 
-export default main;
+export default MainPage;
