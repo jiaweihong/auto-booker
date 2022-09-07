@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const bookActivity = require('./bookActivity.js');
 const pool = require('./db.js');
 const cors = require('cors');
 
