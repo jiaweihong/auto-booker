@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import CryptoJs from 'crypto-js';
+import AES from 'crypto-js/aes';
 import DateTimePicker from 'react-datetime-picker';
 import './App.css'
 
@@ -35,8 +35,9 @@ const BookingForm = ({getPendingBookings, alertArr, setAlertArr}) => {
 
     const encryptPassword = (password) => {
         console.log(password);
-        var ciphertext = CryptoJs.AES.encrypt(password, process.env.REACT_APP_ENCRYPTION_SECRET);
-        console.log("after");
+        var ciphertext = AES.encrypt(password, process.env.REACT_APP_ENCRYPTION_SECRET);
+        console.log(ciphertext);
+        console.log(ciphertext.toString());
 
         let encryptedPassword = ciphertext.toString();
         return encryptedPassword; 
