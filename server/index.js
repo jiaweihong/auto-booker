@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 console.log("Database_URL", process.env.DATABASE_URL);
-
+console.log("12345");
 
 if (process.env.NODE_ENV === "production") {
    app.use(express.static("../client/build"));
