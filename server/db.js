@@ -12,14 +12,7 @@ const developmentConfig = {
 
 const productionConfig = {
     connectionString: process.env.DATABASE_URL,
-    logging: false,
-    ssl: true,
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
-    }
+    ssl: { rejectUnauthorized: false }
 }
 
 const pool = new Pool(process.env.NODE_ENV === "production" ? productionConfig : developmentConfig)
