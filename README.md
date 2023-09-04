@@ -1,13 +1,8 @@
-# AutoBooker
+# Overview
 
-Autobooker is a website that prebooks basketball / volleyball courts for you using the Nottingham gym website as soon as they are become available.
+Autobooker is a React web app with a PostgresSQL database that uses Selenium (browser-automation tool) to allows users to pre-schedule and automatically book basketball / volleball courts through the University of Nottingham gym website as soon as they become available. 
 
-## How to run the app
-
-1. Git clone / download the source code
-2. Install server and client side dependencies by running 'npm i' inside the server and client directory respectively
-3. Run 'npm start' inside the server and client directory to start up the server and the frontend
-4. Go to your localhost that the client is running to browse the website
+Note: The app only worked if you ran it locally as there were integration bugs between Selenium and Heroku, the hosting platform, as such I could not deploy it online. Also, University started during this time meaning that I had no more time to work on the project.
 
 ## Features
 
