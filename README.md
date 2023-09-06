@@ -18,6 +18,9 @@ Note: The app only worked if you ran it locally as there were integration bugs b
 
 ## What the app looks like
 
+### Video Demo
+https://www.youtube.com/watch?v=0uGoL-BaQYA&ab_channel=jiaweihong
+
 ### Main page
 
 ![main page 1](/screenshots/MainPage1.png)
