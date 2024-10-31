@@ -8,7 +8,7 @@
   <a href="#"><img alt="Selenium" src="https://img.shields.io/badge/-selenium-CB02A?style=for-the-badge&logo=selenium&logoColor=white"></a>
 </p>
 
-<h4 align="center">Autobooker is an app that allows students at the University of Nottingham to pre-schedule and automatically book basketball / volleball courts through the university's gym website as soon as they become available. This means that you don't have to wake up at 7am to secure a court for you and your friends!</h4>
+<p align="center">Autobooker is an app that allows students at the University of Nottingham to pre-schedule and automatically book basketball / volleball courts through the university's gym website as soon as they become available. This means that you don't have to wake up at 7am to secure a court for you and your friends!</p>
 
 ## Preview
 
