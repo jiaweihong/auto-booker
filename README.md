@@ -1,8 +1,18 @@
-# Overview
+# Autobooker - Preschedule Court Bookings
 
 Autobooker is a React web app with a PostgresSQL database that uses Selenium (browser-automation tool) to allows users to pre-schedule and automatically book basketball / volleball courts through the University of Nottingham gym website as soon as they become available. 
 
-Note: The app only worked if you ran it locally as there were integration bugs between Selenium and Heroku, the hosting platform, as such I could not deploy it online. Also, University started during this time meaning that I had no more time to work on the project.
+## Tech Stack
+
+<p align="center">
+  <a href="#"><img alt="NodeJS" src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"></a>
+  <a href="#"><img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"></a>
+  <a href="#"><img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"></a>
+  <a href="#"><img alt="ExpressJS" src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge"></a>
+  <a href="#"><img alt="JSON Web Token" src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens"></a>
+  <a href="#"><img alt="Redux Toolkit" src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white"></a>
+  <a href="#"><img alt="React Router" src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white"></a>
+</p>
 
 ## Features
 
